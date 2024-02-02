@@ -9,8 +9,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "DEPARTMENT", uniqueConstraints = {
-        @UniqueConstraint(name = "IDX_DEPARTMENT_HR_MANAGER", columnNames = {"HR_MANAGER_ID"}),
+@Table(name = "DEPARTMENT", indexes = {
+        @Index(name = "IDX_DEPARTMENT_HR_MANAGER", columnList = "HR_MANAGER_ID")
+}, uniqueConstraints = {
         @UniqueConstraint(name = "IDX_DEPARTMENT_UNQ_NAME", columnNames = {"NAME"})
 })
 @Entity
