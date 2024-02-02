@@ -55,9 +55,7 @@
             <datePicker id="joiningDateField" property="joiningDate"/>
         </formLayout>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button action="stepsDataGrid.create"/>
-            <button action="stepsDataGrid.edit"/>
-            <button action="stepsDataGrid.remove"/>
+            <button id="generateButton" text="Generate"/>
         </hbox>
         <dataGrid id="stepsDataGrid" dataContainer="stepsDc" width="100%" height="100%">
             <actions>
@@ -66,10 +64,10 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns>
+                <column property="version"/>
                 <column property="dueDate"/>
                 <column property="completedDate"/>
                 <column property="sortValue"/>
-                <column property="version"/>
             </columns>
         </dataGrid>
         <hbox id="detailActions">
