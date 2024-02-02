@@ -3,9 +3,20 @@
       title="msg://UserDetailView.title"
       focusComponent="form">
     <data>
+        <collection id="departementsDc" class="com.company.onboarding.entity.Departement">
+            <fetchPlan extends="_base"/>
+            <loader id="departementsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Departement e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
         <instance id="userDc"
                   class="com.company.onboarding.entity.User">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="department" fetchPlan="_base"/>
+            </fetchPlan>
             <loader/>
         </instance>
     </data>
@@ -33,6 +44,12 @@
             <comboBox id="timeZoneField" property="timeZoneId"/>
             <checkbox id="activeField" property="active"/>
             <select id="onboardingStatusField" property="onboardingStatus"/>
+            <entityComboBox id="departmentField" property="department" itemsContainer="departementsDc">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

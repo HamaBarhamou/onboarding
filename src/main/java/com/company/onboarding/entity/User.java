@@ -19,7 +19,8 @@ import java.util.UUID;
 @JmixEntity
 @Entity
 @Table(name = "USER_", indexes = {
-        @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
+        @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true),
+        @Index(name = "IDX_USER__DEPARTMENT", columnList = "DEPARTMENT_ID")
 })
 public class User implements JmixUserDetails, HasTimeZone {
 
@@ -59,8 +60,20 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "ONBOARDING_STATUS")
     private Integer onboardingStatus;
 
+    @JoinColumn(name = "DEPARTMENT_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Departement department;
+
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public Departement getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Departement department) {
+        this.department = department;
+    }
 
     public OnboardingStatus getOnboardingStatus() {
         return onboardingStatus == null ? null : OnboardingStatus.fromId(onboardingStatus);
