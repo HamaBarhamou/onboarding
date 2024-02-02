@@ -52,6 +52,7 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityComboBox>
+            <datePicker id="joiningDateField" property="joiningDate"/>
         </formLayout>
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button action="stepsDataGrid.create"/>
