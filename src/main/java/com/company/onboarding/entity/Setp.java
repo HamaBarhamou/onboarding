@@ -26,20 +26,20 @@ public class Setp {
     @NotNull
     private Integer duration;
 
-    @Column(name = "SORT_VALUE", nullable = false)
     @NotNull
+    @Column(name = "SORT_VALUE", nullable = false)
     private String sortValue;
 
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
 
-    public String getSortValue() {
-        return sortValue;
-    }
-
     public void setSortValue(String sortValue) {
         this.sortValue = sortValue;
+    }
+
+    public String getSortValue() {
+        return sortValue;
     }
 
     public Integer getDuration() {

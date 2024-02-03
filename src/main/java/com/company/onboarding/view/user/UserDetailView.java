@@ -1,15 +1,21 @@
 package com.company.onboarding.view.user;
 
 import com.company.onboarding.entity.OnboardingStatus;
+import com.company.onboarding.entity.Setp;
 import com.company.onboarding.entity.User;
+import com.company.onboarding.entity.UserStep;
 import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
+import io.jmix.core.DataManager;
 import io.jmix.core.EntityStates;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.kit.component.button.JmixButton;
+import io.jmix.flowui.model.CollectionPropertyContainer;
+import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +38,10 @@ public class UserDetailView extends StandardDetailView<User> {
     private PasswordField confirmPasswordField;
     @ViewComponent
     private ComboBox<String> timeZoneField;
+    @ViewComponent
+    private DataContext dataContext;
+    @ViewComponent
+    private CollectionPropertyContainer <UserStep> stepsDc;
 
     @Autowired
     private EntityStates entityStates;
@@ -39,6 +49,10 @@ public class UserDetailView extends StandardDetailView<User> {
     private MessageBundle messageBundle;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private DataManager dataManager;
+    @Autowired
+    private Notifications notifications;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -78,7 +92,30 @@ public class UserDetailView extends StandardDetailView<User> {
 
     @Subscribe(id = "generateButton", subject = "doubleClickListener")
     public void onGenerateButtonClick(final ClickEvent<JmixButton> event) {
-        
+        User user = getEditedEntity();
+
+        if (user.getJoiningDate() == null){
+            notifications.create("Impossible de générer des étapes pour un utilisateur qui na pas de 'date adhésion'.")
+                    .show();
+            return;
+        }
+
+        List < Setp> setps = dataManager.load(Setp.class)
+                .query("select s from Setp s order by s.sortValue asc ")
+                .list();
+
+        for(Setp setp: setps){
+            if(stepsDc.getItems().stream().noneMatch(userStep ->
+                    userStep.getStep().equals(setp))){
+                UserStep userStep = dataContext.create(UserStep.class);
+                userStep.setUser(user);
+                userStep.setStep(setp);
+                userStep.setDueDate(user.getJoiningDate().plusDays(setp.getDuration()));
+                userStep.setSortValue(setp.getSortValue());
+                stepsDc.getMutableItems().add(userStep);
+            }
+        }
+
     }
     
 }

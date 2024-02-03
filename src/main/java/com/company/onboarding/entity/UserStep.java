@@ -37,20 +37,20 @@ public class UserStep {
     @Column(name = "COMPLETED_DATE")
     private LocalDate completedDate;
 
-    @Column(name = "SORT_VALUE", nullable = false)
     @NotNull
-    private Integer sortValue;
+    @Column(name = "SORT_VALUE", nullable = false)
+    private String sortValue;
 
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
 
-    public Integer getSortValue() {
-        return sortValue;
+    public void setSortValue(String sortValue) {
+        this.sortValue = sortValue;
     }
 
-    public void setSortValue(Integer sortValue) {
-        this.sortValue = sortValue;
+    public String getSortValue() {
+        return sortValue;
     }
 
     public LocalDate getCompletedDate() {
