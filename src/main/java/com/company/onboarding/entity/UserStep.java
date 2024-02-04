@@ -28,7 +28,7 @@ public class UserStep {
     @JoinColumn(name = "STEP_ID", nullable = false)
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Setp step;
+    private Step step;
 
     @Column(name = "DUE_DATE", nullable = false)
     @NotNull
@@ -69,11 +69,11 @@ public class UserStep {
         this.dueDate = dueDate;
     }
 
-    public Setp getStep() {
+    public Step getStep() {
         return step;
     }
 
-    public void setStep(Setp step) {
+    public void setStep(Step step) {
         this.step = step;
     }
 

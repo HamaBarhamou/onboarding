@@ -64,10 +64,8 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns>
-                <column property="version"/>
                 <column property="dueDate"/>
                 <column property="completedDate"/>
-                <column property="sortValue"/>
             </columns>
         </dataGrid>
         <hbox id="detailActions">

@@ -11,7 +11,7 @@ import java.util.UUID;
 @JmixEntity
 @Table(name = "SETP")
 @Entity
-public class Setp {
+public class Step {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id

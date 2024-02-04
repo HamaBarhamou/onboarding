@@ -3,7 +3,7 @@
 
     <menu id="application" title="msg://com.company.onboarding/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.onboarding.view.user/UserListView.title"/>
-        <item view="Setp.list" title="msg://com.company.onboarding.view.setp/setpListView.title"/>
+        <item view="Setp.list" title="msg://com.company.onboarding.view.step/setpListView.title"/>
         <item view="Departement.list" title="msg://com.company.onboarding.view.departement/departementListView.title"/>
     </menu>
 

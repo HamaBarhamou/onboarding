@@ -1,7 +1,7 @@
 package com.company.onboarding.view.user;
 
 import com.company.onboarding.entity.OnboardingStatus;
-import com.company.onboarding.entity.Setp;
+import com.company.onboarding.entity.Step;
 import com.company.onboarding.entity.User;
 import com.company.onboarding.entity.UserStep;
 import com.company.onboarding.view.main.MainView;
@@ -100,18 +100,18 @@ public class UserDetailView extends StandardDetailView<User> {
             return;
         }
 
-        List < Setp> setps = dataManager.load(Setp.class)
-                .query("select s from Setp s order by s.sortValue asc ")
+        List <Step> steps = dataManager.load(Step.class)
+                .query("select s from Step s order by s.sortValue asc ")
                 .list();
 
-        for(Setp setp: setps){
+        for(Step step : steps){
             if(stepsDc.getItems().stream().noneMatch(userStep ->
-                    userStep.getStep().equals(setp))){
+                    userStep.getStep().equals(step))){
                 UserStep userStep = dataContext.create(UserStep.class);
                 userStep.setUser(user);
-                userStep.setStep(setp);
-                userStep.setDueDate(user.getJoiningDate().plusDays(setp.getDuration()));
-                userStep.setSortValue(setp.getSortValue());
+                userStep.setStep(step);
+                userStep.setDueDate(user.getJoiningDate().plusDays(step.getDuration()));
+                userStep.setSortValue(step.getSortValue());
                 stepsDc.getMutableItems().add(userStep);
             }
         }

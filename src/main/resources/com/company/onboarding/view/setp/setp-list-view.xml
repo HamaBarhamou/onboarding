@@ -5,11 +5,11 @@
       focusComponent="setpsDataGrid">
     <data>
         <collection id="setpsDc"
-                    class="com.company.onboarding.entity.Setp">
+                    class="com.company.onboarding.entity.Step">
             <fetchPlan extends="_base"/>
             <loader id="setpsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Setp e]]>
+                    <![CDATA[select e from Step e]]>
                 </query>
             </loader>
         </collection>
