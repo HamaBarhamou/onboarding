@@ -1,17 +1,21 @@
 package com.company.onboarding.view.user;
 
 import com.company.onboarding.entity.OnboardingStatus;
-import com.company.onboarding.entity.Step;
+import com.company.onboarding.entity.Setp;
 import com.company.onboarding.entity.User;
 import com.company.onboarding.entity.UserStep;
 import com.company.onboarding.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
 import io.jmix.core.EntityStates;
 import io.jmix.flowui.Notifications;
+import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionPropertyContainer;
@@ -20,9 +24,11 @@ import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
+
 
 @Route(value = "users/:id", layout = MainView.class)
 @ViewController("User.detail")
@@ -53,6 +59,8 @@ public class UserDetailView extends StandardDetailView<User> {
     private DataManager dataManager;
     @Autowired
     private Notifications notifications;
+    @Autowired
+    private UiComponents uiComponents;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -100,22 +108,38 @@ public class UserDetailView extends StandardDetailView<User> {
             return;
         }
 
-        List <Step> steps = dataManager.load(Step.class)
-                .query("select s from Step s order by s.sortValue asc ")
+        List <Setp> steps = dataManager.load(Setp.class)
+                .query("select s from Setp s order by s.sortValue asc ")
                 .list();
 
-        for(Step step : steps){
+        for(Setp setp : steps){
             if(stepsDc.getItems().stream().noneMatch(userStep ->
-                    userStep.getStep().equals(step))){
+                    userStep.getStep().equals(setp))){
                 UserStep userStep = dataContext.create(UserStep.class);
                 userStep.setUser(user);
-                userStep.setStep(step);
-                userStep.setDueDate(user.getJoiningDate().plusDays(step.getDuration()));
-                userStep.setSortValue(step.getSortValue());
+                userStep.setStep(setp);
+                userStep.setDueDate(user.getJoiningDate().plusDays(setp.getDuration()));
+                userStep.setSortValue(setp.getSortValue());
                 stepsDc.getMutableItems().add(userStep);
             }
         }
 
     }
-    
+
+    @Supply(to = "stepsDataGrid.completed", subject = "renderer")
+    private Renderer<UserStep> stepsDataGridCompletedRenderer() {
+        return new ComponentRenderer<>(userStep -> {
+            Checkbox checkbox = uiComponents.create(Checkbox.class);
+            checkbox.setValue(userStep.getCompletedDate() != null);
+            checkbox.addValueChangeListener(e -> {
+                if (userStep.getCompletedDate() == null) {
+                    userStep.setCompletedDate(LocalDate.now());
+                } else {
+                    userStep.setCompletedDate(null);
+                }
+            });
+            return checkbox;
+        });
+    }
+
 }

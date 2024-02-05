@@ -4,7 +4,7 @@
       focusComponent="form">
     <data>
         <instance id="setpDc"
-                  class="com.company.onboarding.entity.Step">
+                  class="com.company.onboarding.entity.Setp">
             <fetchPlan extends="_base"/>
             <loader/>
         </instance>
