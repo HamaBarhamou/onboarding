@@ -67,7 +67,7 @@
             </actions>
             <columns>
                 <column key="completed" sortable="false" width="4em" flexGrow="0"/>
-                <column property="setp.name"/>
+                <column property="step.name"/>
                 <column property="dueDate"/>
                 <column property="completedDate"/>
             </columns>
