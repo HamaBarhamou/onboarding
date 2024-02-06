@@ -16,6 +16,11 @@
         </collection>
     </data>
     <layout>
+        <vbox>
+            <span id="totalStepsLabel"/>
+            <span id="completedStepsLabel"/>
+            <span id="overdueStepsLabel"/>
+        </vbox>
         <dataGrid width="100%" id="userStepsDataGrid" dataContainer="userStepsDc">
             <actions/>
             <columns>
