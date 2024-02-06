@@ -21,7 +21,7 @@
             <span id="completedStepsLabel"/>
             <span id="overdueStepsLabel"/>
         </vbox>
-        <dataGrid width="100%" id="userStepsDataGrid" dataContainer="userStepsDc">
+        <dataGrid width="100%" id="userStepsDataGrid" dataContainer="userStepsDc" classNames="onboarding-steps">
             <actions/>
             <columns>
                 <column key="completed" sortable="false" width="4em" flexGrow="0"/>
@@ -30,5 +30,9 @@
                 <column property="completedDate"/>
             </columns>
         </dataGrid>
+        <hbox>
+            <button id="saveButton" text="Save" themeNames="primary"/>
+            <button id="discardButton" text="Discard"/>
+        </hbox>
     </layout>
 </view>
