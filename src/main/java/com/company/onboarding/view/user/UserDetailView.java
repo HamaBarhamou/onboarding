@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
 
+import static com.company.onboarding.view.myonboarding.MyOnboardingView.getUserStepRenderer;
+
 
 @Route(value = "users/:id", layout = MainView.class)
 @ViewController("User.detail")
@@ -130,18 +132,7 @@ public class UserDetailView extends StandardDetailView<User> {
 
     @Supply(to = "stepsDataGrid.completed", subject = "renderer")
     private Renderer<UserStep> stepsDataGridCompletedRenderer() {
-        return new ComponentRenderer<>(userStep -> {
-            Checkbox checkbox = uiComponents.create(Checkbox.class);
-            checkbox.setValue(userStep.getCompletedDate() != null);
-            checkbox.addValueChangeListener(e -> {
-                if (userStep.getCompletedDate() == null) {
-                    userStep.setCompletedDate(LocalDate.now());
-                } else {
-                    userStep.setCompletedDate(null);
-                }
-            });
-            return checkbox;
-        });
+        return getUserStepRenderer(uiComponents);
     }
 
     @Subscribe(id = "stepsDc", target = Target.DATA_CONTAINER)
