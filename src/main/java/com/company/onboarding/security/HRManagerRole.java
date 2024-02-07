@@ -17,7 +17,7 @@ public interface HRManagerRole {
     String CODE = "h-r-manager";
 
     @MenuPolicy(menuIds = "User.list")
-    @ViewPolicy(viewIds = "User.list")
+    @ViewPolicy(viewIds = {"User.list", "User.detail"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Departement.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
@@ -28,11 +28,11 @@ public interface HRManagerRole {
     @EntityPolicy(entityClass = Setp.class, actions = EntityPolicyAction.READ)
     void setp();
 
-    @EntityAttributePolicy(entityClass = User.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
-    @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.ALL)
-    void user();
-
     @EntityAttributePolicy(entityClass = UserStep.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
     @EntityPolicy(entityClass = UserStep.class, actions = EntityPolicyAction.ALL)
     void userStep();
+
+    @EntityAttributePolicy(entityClass = User.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.ALL)
+    void user();
 }
