@@ -41,6 +41,8 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
+    implementation 'io.jmix.authserver:jmix-authserver-starter'
+    implementation 'io.jmix.rest:jmix-rest-starter'
 }
 
 test {
