@@ -1,6 +1,6 @@
 # Tutorial Steps - Getting Started with Jmix
-This tutorial is designed to help you get familiar with the Jmix technology. Follow the steps below to build, run, and interact with your Jmix application, and to explore its REST API capabilities.
-
+By adhering to the guidelines provided in the Jmix documentation, I have navigated 
+through the necessary steps to build, run, and engage with a Jmix application, alongside delving into its REST API functionalities. This process underscores my proficiency in swiftly acquiring knowledge of new technologies. 
 ### Prerequisites
 Ensure you have Java 11 or newer installed on your system.
 An IDE such as IntelliJ IDEA (Community or Ultimate Edition) is recommended for a better development experience.
