@@ -32,7 +32,7 @@ curl -X POST http://localhost:8080/oauth2/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
 -d "grant_type=client_credentials"
 ```
-Replace ```my-client``` and ```my-secret``` with your actual client ID and secret.  
+
 On Windows, remove \ symbols and write the command in a single line.  
 As a result, you should get something like this:
 
